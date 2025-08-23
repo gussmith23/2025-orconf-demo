@@ -1,5 +1,7 @@
+CXX=g++
 
 eqsat.so: eqsat.cc
-	yosys-config --build $@ $<
+	$(CXX) $(shell yosys-config --cxxflags --ldflags --libs) -shared -fPIC -o $@ $<
+
 
 
