@@ -8,7 +8,7 @@ This demo presents a (very rough) version of that pass!
 
 **Goal:** give people an easy way to play with equality saturation for hardware via Yosys. If you already have a Yosys flow, this should* just work!
 
-(*it will definitely break)
+(*it will definitely break, but I will fix it)
 
 ## What is Equality Saturation? What is egglog?
 
@@ -21,12 +21,22 @@ Equality saturation is a program optimization/transformation technique that's be
 
 Anecdotally, I have heard of major EDA vendors also beginning to use eqsat in their tools.
 
-At the core of eqsat is the **egraph**, an efficient datastructure for storing expressions. You can think of it as an efficient database format, optimized for programs.
+At the core of eqsat is the **egraph** datastructure: essentially, an efficient database for storing programs.
+
+The egraph on the left transforms into the egraph on the right when we transform the multiplication by two into a left shift by one:
+
+![egraph](image.png)
+
+As you can see, 
+
+
 
 
 
 [](https://egraphs-good.github.io/egglog-demo/?example=eqsat-basic)
 
+
+[simple hw demo](https://egraphs-good.github.io/egglog-demo/?program=XQAAgAAyAgAAAAAAAAAUHMnnVi1HmurH0_ncX6dnJVwUBmLVa-mxsg6huddnznArUb1o0sC53b1M8A15UyGzSL6rtLOzjsOXlR8ADcHr5Q-HTdBfRmf4ijjyPy9HkE5COLsV7T_UPYnx8WxRfbJGzi7vE4gP-4tkDMgeYsbG1VulZ23_IZraRUxBj7U_1cU40V8gozg69h0wlHzYkvuf4D2V5RSeXzLv_5mj5I5xAe8vF4WG6yBg4uocBTHDGyGZURyEoK1DKkBVXNn-MEfcKy4Fm7IezBv7XGbgTEpKEwtQFDEMgDU_QSZ7KuLE8cHmRJrAGScTA74eD5mZUzfKtCqbS7EC6E_CXKcE_6JZ3ffITZZaShSgFzef04ruZWpr__kDBCA%253D)
 
 ```
 git clone --recursive https://github.com/gussmith23/2025-orconf-demo
