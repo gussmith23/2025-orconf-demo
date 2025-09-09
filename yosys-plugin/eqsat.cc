@@ -8,7 +8,7 @@ struct EqsatPass : public Pass
 {
   EqsatPass() : Pass("eqsat", "Run eqsat engine.") {}
 
-  void execute(std::vector<std::string>, RTLIL::Design *design) override
+  void execute(std::vector<std::string> args, RTLIL::Design *design) override
   {
     log_header(design, "Running eqsat.\n");
     log_push();
@@ -27,10 +27,30 @@ struct EqsatPass : public Pass
       log_cmd_error("CHURCHROAD_DIR environment variable is not set.\n");
     }
 
+    // Parse an optional --extract-script argument from the command line.
+    std::string extract_script = "";
+    for (size_t i = 1; i < args.size(); i++)
+    {
+      log("arg %zu: %s\n", i, args[i].c_str());
+      if (args[i] == "--extract-script" && i + 1 < args.size())
+      {
+        extract_script = args[i + 1];
+        i++;
+      }
+    }
+
     // Run egglog on the file.
     auto output_module_name = "orconf_demo_top";
     auto tmp_output_filename = "tmp_output.sv";
-    auto command = "bash -c \"cargo run --manifest-path " + std::string(churchroad_dir) + "/Cargo.toml -- orconf-demo-2025 --egglog-script " + std::string(filename) + " --output-module-name " + std::string(output_module_name) + "\" > " + std::string(tmp_output_filename);
+    std::string extract_command = "";
+    if (extract_script != "")
+    {
+      std::stringstream ss;
+      ss << "--extract-script-path " << extract_script;
+      extract_command = ss.str();
+    }
+
+    auto command = "bash -c \"cargo run --manifest-path " + std::string(churchroad_dir) + "/Cargo.toml -- orconf-demo-2025 --egglog-script " + std::string(filename) + " --output-module-name " + std::string(output_module_name) + " " + std::string(extract_command) + "\" > " + std::string(tmp_output_filename);
 
     log("Running command: %s\n", command.c_str());
     auto result = system(command.c_str());
