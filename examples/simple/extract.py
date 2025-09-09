@@ -1,4 +1,3 @@
-
 import json
 from pathlib import Path
 from pydantic import BaseModel
@@ -7,21 +6,25 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-Id = str
+ClassId = str
+NodeId = str
 
-Choices = dict[Id, Id]
+Choices = dict[ClassId, NodeId]
+
 
 class Node(BaseModel):
-    op: Id
-    children: list[Id]
-    eclass: Id
+    op: str
+    children: list[NodeId]
+    eclass: ClassId
+
 
 class Class(BaseModel):
-    nodes: list[Id]
+    nodes: list[NodeId]
+
 
 class Egraph(BaseModel):
-    nodes: dict[Id, Node | Class]
-    _cached_classes: dict[Id, Class] | None = None
+    nodes: dict[NodeId, Node]
+    _cached_classes: dict[ClassId, Class] | None = None
 
     # Reimplement this function from egraph-serialize:
     #
@@ -59,7 +62,6 @@ class Egraph(BaseModel):
         return self._cached_classes
 
 
-
 def extract(egraph: Egraph) -> Choices:
 
     choices = {}
@@ -73,15 +75,53 @@ def extract(egraph: Egraph) -> Choices:
     return choices
 
 
+def reachable(egraph: Egraph, choices: Choices, root: ClassId) -> set[ClassId]:
+    """Return the set of classes reachable from root."""
+    visited = set()
+    stack = [root]
+
+    while stack:
+        current = stack.pop()
+        if current not in visited:
+            visited.add(current)
+            node = egraph.nodes[choices[current]]
+            stack.extend(node.eclass for node in node.children)
+
+    return visited
+
+
+def legal(egraph: Egraph, choices: Choices, root: Id) -> bool:
+    """Check if the choices are legal from the root."""
+    reachable_classes = reachable(egraph, root)
+
+    for class_id in reachable_classes:
+        if class_id not in choices:
+            logger.warning(f"Class {class_id} is reachable but not in choices.")
+            return False
+        node_id = choices[class_id]
+        if node_id not in egraph.nodes:
+            logger.warning(f"Node {node_id} chosen for class {class_id} does not exist.")
+            return False
+        node = egraph.nodes[node_id]
+        if node.eclass != class_id:
+            logger.warning(f"Node {node_id} does not belong to class {class_id}.
+
+
 if __name__ == "__main__":
     import argparse
 
-    parser =argparse.ArgumentParser()
-    parser.add_argument("serialized_egraph", type=Path, help="Path to the serialized egraph.")
-
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "serialized_egraph", type=Path, help="Path to the serialized egraph."
+    )
 
     # If -o is present, write file to -o, otherwise use stdout.
-    parser.add_argument("-o", "--output", type=Path, help="Path to write the extracted expression to. If not provided, writes to stdout.")
+    parser.add_argument(
+        "-o",
+        "--output",
+        type=Path,
+        help="Path to write the extracted expression to. If not provided, writes to stdout.",
+    )
     args = parser.parse_args()
 
     output = args.output if args.output else None
