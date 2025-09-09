@@ -25,7 +25,7 @@ At the core of eqsat is the **egraph** datastructure: essentially, an efficient 
 
 The egraph on the left transforms into the egraph on the right when we transform the multiplication by two into a left shift by one:
 
-![egraph](image.png)
+![egraph](assets/egraph.png)
 
 As you can see, 
 
@@ -36,7 +36,7 @@ As you can see,
 [](https://egraphs-good.github.io/egglog-demo/?example=eqsat-basic)
 
 
-[simple hw demo](https://egraphs-good.github.io/egglog-demo/?program=XQAAgAAyAgAAAAAAAAAUHMnnVi1HmurH0_ncX6dnJVwUBmLVa-mxsg6huddnznArUb1o0sC53b1M8A15UyGzSL6rtLOzjsOXlR8ADcHr5Q-HTdBfRmf4ijjyPy9HkE5COLsV7T_UPYnx8WxRfbJGzi7vE4gP-4tkDMgeYsbG1VulZ23_IZraRUxBj7U_1cU40V8gozg69h0wlHzYkvuf4D2V5RSeXzLv_5mj5I5xAe8vF4WG6yBg4uocBTHDGyGZURyEoK1DKkBVXNn-MEfcKy4Fm7IezBv7XGbgTEpKEwtQFDEMgDU_QSZ7KuLE8cHmRJrAGScTA74eD5mZUzfKtCqbS7EC6E_CXKcE_6JZ3ffITZZaShSgFzef04ruZWpr__kDBCA%253D)
+[simple hw demo](https://egraphs-good.github.io/egglog-demo/?program=XQAAgAB7AgAAAAAAAAAUHMnnVi1HmurH0_ncX6dnJVwUBmLVa-mxsg6huddnznArUb1o0sC53b1M8A15UyGzSL6rtLOzjsOXlR8ADcHr5Q-S8wHy0EObEiZb6pJCGOJFh67tDMaN9yp08P4F1mZ2_IXIZGdj6AHtzQ-nLJkgkIhKnsOgVoFzS-C0EYNivO8QJWzf0IRagVe7Pjzxddsq7obfIGEiI9bbxy-YvD2TyYXzKBfrF1gwgn89dUjIO0kdIt5qjtdD9aRmtHK17SpyH7QOQd2SzPGFLorR2S0zbcZOf3n1bW9K-Dv-lXXQ9XabukoOO-od8keNaabzMtP2H3mGhQ3FxwEPBSwmJ9BX_MGIxKQ-Hu5a3FjntOZIzmyArO310zRKZhgWHHmkdueteLZxzKEKswZLPzFCva_X_53DGwA%253D)
 
 ```
 git clone --recursive https://github.com/gussmith23/2025-orconf-demo
