@@ -29,12 +29,24 @@ struct EqsatPass : public Pass
 
     // Parse an optional --extract-script argument from the command line.
     std::string extract_script = "";
+    std::vector<std::string> egglog_scripts;
+    std::string output_egraph = "";
     for (size_t i = 1; i < args.size(); i++)
     {
       log("arg %zu: %s\n", i, args[i].c_str());
       if (args[i] == "--extract-script" && i + 1 < args.size())
       {
         extract_script = args[i + 1];
+        i++;
+      }
+      if (args[i] == "--egglog-script" && i + 1 < args.size())
+      {
+        egglog_scripts.push_back(args[i + 1]);
+        i++;
+      }
+      if (args[i] == "--output-egraph" && i + 1 < args.size())
+      {
+        output_egraph = args[i + 1];
         i++;
       }
     }
@@ -48,6 +60,14 @@ struct EqsatPass : public Pass
       std::stringstream ss;
       ss << "--extract-script-path " << extract_script;
       extract_command = ss.str();
+    }
+    for (auto &script : egglog_scripts)
+    {
+      extract_command += " --egglog-script " + script;
+    }
+    if (output_egraph != "")
+    {
+      extract_command += " --output-egraph " + output_egraph;
     }
 
     auto command = "bash -c \"cargo run --manifest-path " + std::string(churchroad_dir) + "/Cargo.toml -- orconf-demo-2025 --egglog-script " + std::string(filename) + " --output-module-name " + std::string(output_module_name) + " " + std::string(extract_command) + "\" > " + std::string(tmp_output_filename);
