@@ -36,7 +36,7 @@ As you can see,
 [](https://egraphs-good.github.io/egglog-demo/?example=eqsat-basic)
 
 
-[simple hw demo](https://egraphs-good.github.io/egglog-demo/?program=XQAAgABZAgAAAAAAAAAUHMnnVi1HmurH0_ncX6dnJVwUBmLVa-mxsg6huddnznArUb1o0sC53b1M8A15UyGzSL6rtLOzi2TkaPRlDeewaPvacugooMAs-StuyrrMV_buGXYJ5KfHxaH4gvgIiaRFh9GY9GL3QXRjU-LuauPJcwf72jROpxh-FlItt_Bv0yQcNZtlXm3Lp2VDElcTnbd9AMZb9c3JonDMfz9oxmKxH5_gFFysxCbmlq6sugF2rYzfthk1bWdgMX1zZxtdFXoucA6G89mC-oWA8rZqUu-rjqqEOCxd8bHt88bIr9aR0N979YKRNtKvXlRA45f5ghuM6BzA1Sj4T_4H8r7DCBFus6B4LA6gGRGuqTqp-cr2peZywcBtOLUititzZJquemuI_2UcKDQbXOn-8yX-tg%253D%253D)
+[simple hw demo](https://egraphs-good.github.io/egglog-demo/?program=XQAAgABxAgAAAAAAAAAUHMnnVi1HmurH0_ncX6dnJVwUBmLVa-mxsg6huddnznArUb1o0sC53b1M8A15UyGzSL6rtLOzi2TkaPRlDeewaJsKHTkwE0KsL1PBpLmgImPZ1LieLI3s---cOMBnsPxUTpks7pQdBKzZyBfSMd7wn8q4MUvTdOtaMXy093fkJeSjqUu6Ppp6XppXaoVOi-I-5IxQFSncPuT169-L2C_Eyl7wkFMMZDpyXBODWOZcbl8OrKkZf4nxJIZsxeeX0h-FS1yCN3TPXMzervx26BHb9CuNK2_iyBlVxYfX1IvD7JIvNy5BoYa1JMWcOyaSuKri8PLEkGyoA2-V1YQoWdv91ArDPkWHEwYsQXEHV4GJS1pPQxmnUdZXybAUCmTb-_smBq39SB9iwFPkiMeZLuy2Eg4hi__zoqva)
 
 ```
 git clone --recursive https://github.com/gussmith23/2025-orconf-demo
