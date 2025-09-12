@@ -5,8 +5,8 @@ These commands should work on Mac and most Linux distributions. Dependencies:
 
 * git
 * basic build tools (e.g. `build-essential`)
-* Rust (install via `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`)
-* Python3 + pip + venv
+* Rust (install via e.g. `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh` and then `. "$HOME/.cargo/env"`)
+* Python3 + pip  + venv (`python3`, `python3-pip`, `python3-venv` on apt)
 * Yosys dependencies, e.g. on ubuntu:
   ```sh
   apt-get install build-essential clang lld bison flex libfl-dev \
