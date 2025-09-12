@@ -5,7 +5,7 @@ These commands should work on Mac and most Linux distributions. Dependencies:
 
 * git
 * basic build tools (e.g. `build-essential`)
-* Rust (install via e.g. `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh` and then `. "$HOME/.cargo/env"`)
+* Rust (install via e.g. `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh` and then restart your shell with e.g. `bash`; make sure you can run `cargo` without error)
 * Python3 + pip  + venv (`python3`, `python3-pip`, `python3-venv` on apt)
 * Yosys dependencies, e.g. on ubuntu:
   ```sh
