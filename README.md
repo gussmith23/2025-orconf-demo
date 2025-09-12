@@ -6,7 +6,14 @@ These commands should work on Mac and most Linux distributions. Dependencies:
 * git
 * basic build tools (e.g. `build-essential`)
 * Rust (install via `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`)
-* Python3 + venv
+* Python3 + pip + venv
+* Yosys dependencies, e.g. on ubuntu:
+  ```sh
+  apt-get install build-essential clang lld bison flex libfl-dev \
+    libreadline-dev gawk tcl-dev libffi-dev git \
+    graphviz xdot pkg-config python3 libboost-system-dev \
+    libboost-python-dev libboost-filesystem-dev zlib1g-dev
+  ```
 
 ```
 # Clone this repo.
@@ -14,7 +21,7 @@ git clone --recursive https://github.com/gussmith23/2025-orconf-demo
 cd 2025-orconf-demo
 
 # Create and activate a Python virtual environment.
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
