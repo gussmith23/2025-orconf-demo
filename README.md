@@ -3,7 +3,9 @@
 
 These commands should work on Mac and most Linux distributions. Dependencies:
 
-* Rust (install via `rustup`)
+* git
+* basic build tools (e.g. `build-essential`)
+* Rust (install via `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`)
 * Python3 + venv
 
 ```
@@ -22,6 +24,7 @@ git clone --recursive https://github.com/YosysHQ/yosys
 cd yosys
 make PREFIX=$PWD/install -j`nproc` install
 export PATH="$PWD/install/bin:$PATH"
+cd ..
 
 # Make Yosys plugins.
 # The Yosys+egglog plugin itself:
