@@ -3,7 +3,10 @@
   (Op2 (And) ?expr1 ?expr2)
   (Op2 (And) ?expr2 ?expr1)
   :ruleset simple
-  :subsume ; (this overwrites the original expr1&expr2; not necessary in most rewrites)
+  ; subsume deletes the original expr1&expr2 so that Yosys will display the
+  ; rewritten expression as expr2&expr1 for the sake of the orconf demo; subsume
+  ; is not necessary in most rewrites!
+  :subsume 
  )
 
 (run simple 1)
