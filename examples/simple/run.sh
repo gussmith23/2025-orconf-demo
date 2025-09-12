@@ -8,6 +8,10 @@ yosys \
   read_verilog -sv \"$SCRIPT_DIR/simple.sv\"
   hierarchy -check -top simple
   proc
+
   eqsat --egglog-script \"$SCRIPT_DIR/rewrites.egglog\"
+
+  hierarchy -check -top simple
+  opt
   write_verilog
 "
