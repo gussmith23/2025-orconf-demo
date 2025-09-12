@@ -1,23 +1,53 @@
 
+## Quickstart
+
+These commands should work on Mac and most Linux distributions. Dependencies:
+
+* Rust (install via `rustup`)
+* Python3 + venv
+
 ```
+# Clone this repo.
 git clone --recursive https://github.com/gussmith23/2025-orconf-demo
 cd 2025-orconf-demo
+
+# Create and activate a Python virtual environment.
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+# Clone and build Yosys.
+# You may use a prebuilt Yosys, but Yosys's plugin system works most easily when you build from source.
+git clone --recursive https://github.com/YosysHQ/yosys
+cd yosys
+make PREFIX=$PWD/install -j`nproc` install
+export PATH="$PWD/install/bin:$PATH"
+
+# Make Yosys plugins.
+# The Yosys+egglog plugin itself:
 make -C yosys-plugin
+# The Churchroad (https://github.com/gussmith23/churchroad) plugin, which we use for its egglog hardware DSL.
 make -C churchroad/yosys-plugin
+
+# Finally, run the example!
 ./examples/simple/run.sh
 ```
 
 # Yosys + egglog: Supercharge your passes with Equality Saturation
 
-**Background:** at this year's Latch-Up in Santa Barbara, I spoke with a group of people about equality saturation (eqsat) during the un-conference.
+This is a demo written for OrConf 2025 in Valencia, Spain.
 
+**Abstract:** Equality saturation (eqsat) is a neat new technology for building compilers and EDA tools.
+It's seen a lot of adoption in EDA, but can still be inaccessible to the average designer.
+We present a Yosys plugin that lowers the barrier to entry for using eqsat.
+
+<!-- **Background:** at this year's Latch-Up conference in Santa Barbara, I spoke with a group of people about equality saturation (eqsat) during the un-conference.
 This made me realize I could make an easy on-ramp to using eqsat with hardware via a Yosys pass.
-
 This demo presents a (very rough) version of that pass!
 
-**Goal:** give people an easy way to play with equality saturation for hardware via Yosys. If you already have a Yosys flow, this should* just work!
+**Goal:** give people an easy way to play with equality saturation for hardware via Yosys. If you already have a Yosys flow, this should* just work! -->
 
-(*it will definitely break, but I will fix it)
+Note that this prototype will definitely break, but we will be actively working on this, so please submit issues as you find them.
 
 ## What is Equality Saturation? 
 
@@ -149,3 +179,48 @@ Now our top-level eclass has yet another expression in it, the `Add` node, repre
 Now that we have an interesting database capturing multiple possible versions of our design, we need to extract out a transformed version of the design.
 This is known as **extraction**.
 This step is not shown in this simple example, but is discussed later in this demo.
+
+
+## Yosys + egglog
+
+With that background, we are now ready to look at the egglog plugin for Yosys.
+
+Interfacing with the plugin is quite simple:
+
+```sh
+yosys \
+  -m "./yosys-plugin/churchroad.so" \
+  -m "./yosys-plugin/eqsat.so" -p "
+
+    read_verilog -sv <your design files>
+    hierarchy
+    proc
+    ...other passes...
+    eqsat --egglog-script <path to rewriting script> --extract-script <path to extraction script>
+    ...other passes...
+    write_verilog
+
+"
+```
+
+The `eqsat` pass does the following:
+
+1. Converts your design into an egglog hardware DSL (the process we did manually above)
+2. Runs the user-specified `--egglog-script`s, if any. This is where the user can specify the rewrites they would like to run.
+3. Runs the user-specified `--extract-script`, to extract the final representative from the design. If no extraction script is specified, runs a naive extraction (currently a random extraction for demo purposes).
+
+This architecture is meant to be maximally flexible.
+Notably, you can write your extraction in Python, meaning you can use any Python libraries you'd like to implement a simple or complex extraction procedure.
+As long as you imitate the Python interface in our demo extraction scripts, the extraction will work with the pass.
+
+
+## Going Forward
+
+We are working on a number of improvements:
+
+* A richer and more efficient underlying egglog DSL 
+* More powerful extraction techniques
+* Modifications to egglog core, to help it scale to real designs
+
+Please submit issues for feedback, bug reports, and feature requests!
+
