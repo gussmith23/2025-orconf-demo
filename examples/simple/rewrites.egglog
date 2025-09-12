@@ -1,0 +1,9 @@
+(ruleset simple)
+(rewrite 
+  (Op2 (And) ?expr1 ?expr2)
+  (Op2 (And) ?expr2 ?expr1)
+  :ruleset simple
+  :subsume ; (this overwrites the original expr1&expr2; not necessary in most rewrites)
+ )
+
+(run simple 1)
